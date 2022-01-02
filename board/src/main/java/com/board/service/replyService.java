@@ -10,4 +10,5 @@ public interface replyService {
 	public void replyCreate(ReplyVO vo) throws Exception;
 	public void replyUpdate(ReplyVO vo) throws Exception;
 	public void replyDelete(ReplyVO vo) throws Exception;
+	public ReplyVO replySelect(int rno) throws Exception;
 }

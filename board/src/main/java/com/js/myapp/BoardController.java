@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.domain.BoardVO;
 import com.board.domain.ReplyVO;
@@ -70,39 +71,88 @@ public class BoardController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
     public String getcreate() throws Exception {
+		
 		return "board/create";
     }
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
     public String postcreate(BoardVO vo) throws Exception {
+		
     	service.create(vo);
+    	
     	return "redirect:list";
     }
     
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String getupdate(int bno, Model model) throws Exception {
+    	
     	BoardVO data = service.detail(bno);
+    	
     	model.addAttribute("data", data);
-       return "board/update";
+    	
+    	return "board/update";
     }
     
     @RequestMapping(value= "/update", method=RequestMethod.POST)
     public String postupdate(BoardVO vo) throws Exception {
+    	
         service.update(vo);
+        
         return "redirect:list";
     }
     
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String getdelete(int bno) throws Exception {
+    	
     	service.delete(bno);
+    	
     	return "redirect:list";
     }
     
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String postdelete(int bno) throws Exception {
+    	
     	service.delete(bno);
+    	
     	return "redirect:list";
     }
+    
+    
+    @RequestMapping(value="/replyUpdateView", method = RequestMethod.GET)
+	public String getreplyUpdate(ReplyVO vo, Model model) throws Exception {
+    	
+    	model.addAttribute("replyUpdate", replyservice.replySelect(vo.getRno()));
+    	
+		return "board/replyUpdateView";
+	}
+	
+	@RequestMapping(value="/replyUpdate", method = RequestMethod.POST)
+	public String replyUpdate(ReplyVO vo, RedirectAttributes rttr) throws Exception {
+		
+		replyservice.replyUpdate(vo);
+		
+		rttr.addAttribute("bno", vo.getBno());
+		
+		return "redirect:/board/detail";
+	}
+	
+	@RequestMapping(value="/replyDeleteView", method = RequestMethod.GET)
+	public String replyDeleteView(ReplyVO vo, Model model) throws Exception {
+		
+		model.addAttribute("replyDelete", replyservice.replySelect(vo.getRno()));
+		
+		return "board/replyDeleteView";
+	}
+	
+	@RequestMapping(value="/replyDelete", method = RequestMethod.POST)
+	public String replyDelete(ReplyVO vo, RedirectAttributes rttr) throws Exception {
+		
+		replyservice.replyDelete(vo);
+		
+		rttr.addAttribute("bno", vo.getBno());
+		
+		return "redirect:/board/detail";
+	}
     
 }
     

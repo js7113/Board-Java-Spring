@@ -12,7 +12,14 @@
         WHERE bno = #{bno}
         ORDER BY cre_date desc
     </select>
-
+    
+    <select id="replySelect" resultType="com.board.domain.ReplyVO">
+ 		SELECT
+     		rno, bno, content, writer, upd_date
+ 		FROM tbl_reply
+     	WHERE rno = #{rno}
+	</select>
+    
     <insert id="replyCreate" parameterType="com.board.domain.ReplyVO">
         INSERT INTO tbl_reply (bno, content, writer, cre_date) 
         VALUES (#{bno}, #{content}, #{writer}, NOW())

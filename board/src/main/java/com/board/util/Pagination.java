@@ -1,17 +1,17 @@
 package com.board.util;
 
 public class Pagination {
-	private int listSize = 10;
-	private int rangeSize = 10;
-	private int page;
-	private int range;
-	private int listCnt;
-	private int pageCnt;
-	private int startPage;
-	private int startList;
-	private int endPage;
-	private boolean prev;
-	private boolean next;
+	private int listSize = 10;		// 한 페이지 목록의 개수
+	private int rangeSize = 10;		// 한 페이지 범위의 개수
+	private int page;				// 현재페이지
+	private int range;				// 현재페이지 범위
+	private int listCnt;			// 총 게시물의 개수
+	private int pageCnt;			// 총 페이지 범위의 개수
+	private int startPage;			// 각 페이지 범위 시작 번호
+	private int startList;			// 게시판 시작번호
+	private int endPage;			// 각 페이지 범위 끝 번호
+	private boolean prev;			// 이전페이지 여부
+	private boolean next;			// 다음페이지 여부
 
 	
 	public int getRangeSize() {

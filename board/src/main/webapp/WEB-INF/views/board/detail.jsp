@@ -68,6 +68,10 @@
 									        작성 날짜 :  <fmt:formatDate value="${rList.cre_date}" pattern="yyyy-MM-dd" />
 									        </p>
 								        	<p>${rList.content}</p>
+								        	<div>
+											  <button type="button" class="replyUpdateBtn" data-rno="${rList.rno}">수정</button>
+											  <button type="button" class="replyDeleteBtn" data-rno="${rList.rno}">삭제</button>
+											</div>
 								      	</li>
 								    </c:forEach>   
   								</ul>
@@ -129,6 +133,16 @@
 		  	  var formObj = $("form[name='replyForm']");
 		  	  formObj.attr("action", "${path}/board/replyCreate");
 		  	  formObj.submit();
+		});
+		
+		$(".replyUpdateBtn").on("click", function(){
+			location.href = "/board/replyUpdateView?bno=${data.bno}"
+							+ "&rno="+$(this).attr("data-rno");
+		});
+		
+		$(".replyDeleteBtn").on("click", function(){
+			location.href = "/board/replyDeleteView?bno=${data.bno}"
+							+ "&rno="+$(this).attr("data-rno");
 		});
 	});
 </script>  	
